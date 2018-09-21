@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guohouxiao.driverexam.mapper.ErrorProblemMapper">
+    <resultMap id="BaseResultMap" type="com.guohouxiao.driverexam.model.ErrorProblem">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="problem_id" jdbcType="VARCHAR" property="problemId"/>
+        <result column="difficulty" jdbcType="VARCHAR" property="difficulty"/>
+        <result column="knowledge" jdbcType="VARCHAR" property="knowledge"/>
+        <result column="question" jdbcType="VARCHAR" property="question"/>
+        <result column="answer" jdbcType="VARCHAR" property="answer"/>
+        <result column="count" jdbcType="INTEGER" property="count"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, user_id, problem_id, difficulty, knowledge, question, answer, count, create_time
+  </sql>
+    <select id="selectByExample" parameterType="com.guohouxiao.driverexam.model.ErrorProblemExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from error_problem
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from error_problem
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from error_problem
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.guohouxiao.driverexam.model.ErrorProblemExample">
+        delete from error_problem
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.guohouxiao.driverexam.model.ErrorProblem">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into error_problem (id, user_id, problem_id, difficulty,
+        knowledge, question, answer,
+        count, create_time)
+        values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{problemId,jdbcType=VARCHAR},
+        #{difficulty,jdbcType=VARCHAR},
+        #{knowledge,jdbcType=VARCHAR}, #{question,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR},
+        #{count,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.guohouxiao.driverexam.model.ErrorProblem">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into error_problem
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="problemId != null">
+                problem_id,
+            </if>
+            <if test="difficulty != null">
+                difficulty,
+            </if>
+            <if test="knowledge != null">
+                knowledge,
+            </if>
+            <if test="question != null">
+                question,
+            </if>
+            <if test="answer != null">
+                answer,
+            </if>
+            <if test="count != null">
+                count,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="problemId != null">
+                #{problemId,jdbcType=VARCHAR},
+            </if>
+            <if test="difficulty != null">
+                #{difficulty,jdbcType=VARCHAR},
+            </if>
+            <if test="knowledge != null">
+                #{knowledge,jdbcType=VARCHAR},
+            </if>
+            <if test="question != null">
+                #{question,jdbcType=VARCHAR},
+            </if>
+            <if test="answer != null">
+                #{answer,jdbcType=VARCHAR},
+            </if>
+            <if test="count != null">
+                #{count,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.guohouxiao.driverexam.model.ErrorProblemExample"
+            resultType="java.lang.Long">
+        select count(*) from error_problem
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update error_problem
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=VARCHAR},
+            </if>
+            <if test="record.userId != null">
+                user_id = #{record.userId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.problemId != null">
+                problem_id = #{record.problemId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.difficulty != null">
+                difficulty = #{record.difficulty,jdbcType=VARCHAR},
+            </if>
+            <if test="record.knowledge != null">
+                knowledge = #{record.knowledge,jdbcType=VARCHAR},
+            </if>
+            <if test="record.question != null">
+                question = #{record.question,jdbcType=VARCHAR},
+            </if>
+            <if test="record.answer != null">
+                answer = #{record.answer,jdbcType=VARCHAR},
+            </if>
+            <if test="record.count != null">
+                count = #{record.count,jdbcType=INTEGER},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update error_problem
+        set id = #{record.id,jdbcType=VARCHAR},
+        user_id = #{record.userId,jdbcType=VARCHAR},
+        problem_id = #{record.problemId,jdbcType=VARCHAR},
+        difficulty = #{record.difficulty,jdbcType=VARCHAR},
+        knowledge = #{record.knowledge,jdbcType=VARCHAR},
+        question = #{record.question,jdbcType=VARCHAR},
+        answer = #{record.answer,jdbcType=VARCHAR},
+        count = #{record.count,jdbcType=INTEGER},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.guohouxiao.driverexam.model.ErrorProblem">
+        update error_problem
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="problemId != null">
+                problem_id = #{problemId,jdbcType=VARCHAR},
+            </if>
+            <if test="difficulty != null">
+                difficulty = #{difficulty,jdbcType=VARCHAR},
+            </if>
+            <if test="knowledge != null">
+                knowledge = #{knowledge,jdbcType=VARCHAR},
+            </if>
+            <if test="question != null">
+                question = #{question,jdbcType=VARCHAR},
+            </if>
+            <if test="answer != null">
+                answer = #{answer,jdbcType=VARCHAR},
+            </if>
+            <if test="count != null">
+                count = #{count,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.guohouxiao.driverexam.model.ErrorProblem">
+    update error_problem
+    set user_id = #{userId,jdbcType=VARCHAR},
+      problem_id = #{problemId,jdbcType=VARCHAR},
+      difficulty = #{difficulty,jdbcType=VARCHAR},
+      knowledge = #{knowledge,jdbcType=VARCHAR},
+      question = #{question,jdbcType=VARCHAR},
+      answer = #{answer,jdbcType=VARCHAR},
+      count = #{count,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
